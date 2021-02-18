@@ -9,8 +9,13 @@ const app = props => {
       {name: 'Kevin', age: 29},
       {name: 'Zelda', age: 26}
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
   });
+
+  const [showPersonState, setShowPersons] = useState ({
+    showPersons: false
+  })
+
 
   // const [otherState,setOtherState] = useState('some other value');
 
@@ -38,6 +43,11 @@ const app = props => {
     });
   }
 
+  const togglePersonHandler = () => {
+    const doesShow = showPersonState.showPersons;
+    setShowPersons({showPersons: !doesShow});
+  }
+
   const style = {
     backgroundColor: 'pink',
     font: 'inherit',
@@ -52,14 +62,18 @@ const app = props => {
       <p>This is really working!</p>
       <button 
         style={style}
-        onClick={switchNameHandler}>Switch Name</button>
-      <Person name={personsState.persons[0].name} age={personsState.persons[0].age}/>
-      <Person 
-        name={personsState.persons[1].name} 
-        age={personsState.persons[1].age}
-        change={nameChangedHandler}
-        >My Hobbies: Racing</Person>
-      <Person name={personsState.persons[2].name} age={personsState.persons[2].age}/>
+        onClick={togglePersonHandler}>Switch Name</button>
+        {showPersonState.showPersons === true?
+          <div >
+          <Person name={personsState.persons[0].name} age={personsState.persons[0].age}/>
+          <Person 
+            name={personsState.persons[1].name} 
+            age={personsState.persons[1].age}
+            change={nameChangedHandler}
+            >My Hobbies: Racing</Person>
+          <Person name={personsState.persons[2].name} age={personsState.persons[2].age}/>
+        </div> : null
+        }
     </div>
   );
   // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m Roselle Burlasa'));
