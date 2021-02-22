@@ -16,22 +16,19 @@ const app = props => {
     showPersons: false
   })
 
-
   // const [otherState,setOtherState] = useState('some other value');
-
   // console.log(personsState, otherState);
-
-  const switchNameHandler = (newName) => {
+  // const switchNameHandler = (newName) => {
     // console.log('Was Clicked!');
     //Dont do this: this.state.persons[0].name = "Rosellinda";
-    setPersonsState({
-      persons: [
-        {name: 'Rosellinda', age: 28},
-        {name: 'Kevin', age: 29},
-        {name: 'Zelda', age: 27}
-      ]
-    });
-  };
+  //   setPersonsState({
+  //     persons: [
+  //       {name: 'Rosellinda', age: 28},
+  //       {name: 'Kevin', age: 29},
+  //       {name: 'Zelda', age: 27}
+  //     ]
+  //   });
+  // };
   
   const nameChangedHandler = (e) => {
     setPersonsState({
@@ -56,24 +53,25 @@ const app = props => {
     cursor: 'pointer'
   };
 
+  let persons = null;
+  
+  if(showPersonState.showPersons) {
+    persons = (
+      <div>
+        {personsState.persons.map(person => {
+          return <Person name={person.name} age={person.age}/>
+        })}
+      </div> 
+    )
+  }
   return (
     <div className="App">
       <h1>Hi, I am Roselle!</h1>
       <p>This is really working!</p>
       <button 
         style={style}
-        onClick={togglePersonHandler}>Switch Name</button>
-        {showPersonState.showPersons === true?
-          <div >
-          <Person name={personsState.persons[0].name} age={personsState.persons[0].age}/>
-          <Person 
-            name={personsState.persons[1].name} 
-            age={personsState.persons[1].age}
-            change={nameChangedHandler}
-            >My Hobbies: Racing</Person>
-          <Person name={personsState.persons[2].name} age={personsState.persons[2].age}/>
-        </div> : null
-        }
+        onClick={togglePersonHandler}>Toggle Persons</button>
+      {persons}
     </div>
   );
   // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m Roselle Burlasa'));
